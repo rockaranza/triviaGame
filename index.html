@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <title>Trivia</title>   
+</head>
+<body>
+    <div class="main">
+        <div class="titulo">
+            <h1>TRIVIA VANILLA JS</h1>
+        </div>
+        <div class="container">
+            <div class="aside nes-container with-title is-left">
+                <h2 class="titleSize title">Jugador</h2>
+                <div class="data">
+                    <div class="dataUser">
+                        <p>Nombre</p>
+                        <p class="nes-container">Rockaranza</p>
+                        <div class="lifeContainer">
+                            <p>Life</p>
+                            <span><i class="nes-icon is-large heart"></i></span>
+                            <span><i class="nes-icon is-large is-half heart"></i></span>
+                            <span><i class="nes-icon is-large is-transparent heart"></i></span>
+                        </div>
+                        <div class="progreseContainer">
+                            <p>Progreso</p>
+                            <progress class="nes-progress is-warning" value="30" max="100"></progress>
+                        </div>
+                    </div>
+                    <div class="scoreContainer">
+                        <p>Score: </p>
+                        <p class="score">00000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="game nes-container with-title is-left">
+                <p class="title titleSize">Trivia</p>
+                <div class="botones">
+                    <button type="button" class="nes-btn is-success" id="btnSumar">Sumar Puntos</button>
+                    <button type="button" class="nes-btn is-error" id="btnPerder">Perder Vida</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="src/js/script.js"></script>
+</body>
+</html>
