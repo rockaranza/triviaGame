@@ -25,18 +25,18 @@
                         <p class="nes-container">Rockaranza</p>
                         <div class="lifeContainer">
                             <p>Life</p>
-                            <span><i class="nes-icon is-large heart" id="heart1"></i></span>
-                            <span><i class="nes-icon is-large heart" id="heart2"></i></span>
-                            <span><i class="nes-icon is-large heart" id="heart3"></i></span>
+                            <span><i class="nes-icon is-large heart init" id="heart1"></i></span>
+                            <span><i class="nes-icon is-large heart init" id="heart2"></i></span>
+                            <span><i class="nes-icon is-large heart init" id="heart3"></i></span>
                         </div>
                         <div class="progreseContainer">
                             <p>Progreso</p>
-                            <progress class="nes-progress is-warning" value="30" max="100"></progress>
+                            <progress class="nes-progress is-warning" value="0" max="100" id="barraProgreso"></progress>
                         </div>
                     </div>
                     <div class="scoreContainer">
                         <p>Score: </p>
-                        <p class="score" id="score"></p>
+                        <p class="score" id="score">0</p>
                     </div>
                 </div>
             </div>
@@ -45,6 +45,7 @@
                 <div class="botones">
                     <button type="button" class="nes-btn is-success" id="btnSumar">Sumar Puntos</button>
                     <button type="button" class="nes-btn is-error" id="btnPerder">Perder Vida</button>
+                    <button type="button" class="nes-btn is-warning" id="btnProgreso">Progresar</button>
                 </div>
             </div>
         </div>
