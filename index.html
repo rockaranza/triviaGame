@@ -17,51 +17,54 @@
             <h1>TRIVIA VANILLA JS</h1>
         </div>
         <div class="container">
-            <div class="aside nes-container with-title is-left">
-                <h2 class="titleSize title">Opciones</h2>
-                <div class="data">
-                    <div class="dataUser">
-                        <!--Opciones del juego-->
-                        <div class="gameOptions nes-container with-title is-left">
-                            <h3 class="title">Opciones</h3>
-                            <label for="default_select">Categorías</label>
-                            <div class="nes-select">
-                                <select required id="default_select">
-                                    <option value="" disabled selected hidden>Select...</option>
-                                </select>
-                            </div>
-                            <label for="default_select">Cantidad de Preguntas</label>
-                            <input type="number" class="nes-textarea">
-                            <div class="tipoRespuestas">
-                                <p>Tipo de respuestas</p>
-                                <label>
-                                    <input type="radio" class="nes-radio" name="answer" checked />
-                                    <span>Multiple Choise</span>
-                                  </label>
-                                  <label>
-                                    <input type="radio" class="nes-radio" name="answer" />
-                                    <span>True/False</span>
-                                  </label>
-                            </div>
+            <div class="aside">     
+                
+                    <!--Opciones del juego-->
+                    <div class="opcionesJuego nes-container with-title is-left">
+                        <h3 class="title titleWidth">Opciones</h3>
+                        <label for="default_select">Categorías</label>                            <div class="nes-select">
+                            <select required id="default_select">
+                                <option value="" disabled selected hidden>Selecciona...</option>
+                            </select>
                         </div>
+                        <label for="default_select">Cantidad de Preguntas</label>
+                        <input type="number" class="nes-textarea" min="5" max="50">
+                        <div class="tipoRespuestas">
+                            <p>Tipo de respuestas</p>
+                            <label>
+                                <input type="radio" class="nes-radio" name="answer" checked />
+                                <span>Multiple Choise</span>
+                              </label>
+                              <label>
+                                <input type="radio" class="nes-radio" name="answer" />
+                                <span>True/False</span>
+                              </label>
+                        </div>
+                        <button type="button" class="btnJugar nes-btn is-success" id="btnJugar">JUGAR</button>
+                    </div>
                         <!--Interfaz de info-->
-                        <div class="lifeContainer">
-                            <p>Life</p>
-                            <span><i class="nes-icon is-large heart init" id="heart1"></i></span>
-                            <span><i class="nes-icon is-large heart init" id="heart2"></i></span>
-                            <span><i class="nes-icon is-large heart init" id="heart3"></i></span>
+                    <div class="jugador nes-container with-title is-left">
+                        <h3 class="title">Jugador</h3>
+                        <div class="vidaScore">
+                            <div class="lifeContainer">
+                                <p>Life</p>
+                                <span><i class="nes-icon is-medium heart init" id="heart1"></i></span>
+                                <span><i class="nes-icon is-medium heart init" id="heart2"></i></span>
+                                <span><i class="nes-icon is-medium heart init" id="heart3"></i></span>
+                            </div>
+                            <div class="scoreContainer nes-container with-title is-left">
+                                <p class="title">Score</p>
+                                <p class="score" id="score">0</p>
+                            </div>
                         </div>
                         <div class="progreseContainer">
                             <p>Progreso</p>
                             <progress class="nes-progress is-warning" value="0" max="100" id="barraProgreso"></progress>
                         </div>
                     </div>
-                    <div class="scoreContainer">
-                        <p>Score: </p>
-                        <p class="score" id="score">0</p>
-                    </div>
-                </div>
+                              
             </div>
+            <!--Sección de Juego-->
             <div class="game nes-container with-title is-left">
                 <p class="title titleSize">Trivia</p>
                 <div class="botones">

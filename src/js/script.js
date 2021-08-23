@@ -1,6 +1,7 @@
 window.onload = cargarCategorias();
 
-
+/*BOTONES*/
+const jugar = document.getElementById("btnJugar");
 const sumarPuntos = document.getElementById("btnSumar");
 const restarVida = document.getElementById("btnPerder");
 const progresar = document.getElementById("btnProgreso");
@@ -14,7 +15,7 @@ const score = document.getElementById("score");
 const listadoTemas = document.getElementById("default_select");
 
 /*CARGA INICIAL*/
-//Recibir categorias para mostrar
+//Recibir categorias para mostrar y las carga en listado
 async function cargarCategorias () {
     const recibirCategorias = await fetch(`https://opentdb.com/api_category.php`);
     const categorias = await recibirCategorias.json();
@@ -56,6 +57,8 @@ function perderVida() {
     }
 }
 
+/*Invocar Funciones*/
+jugar.addEventListener("click",);
 sumarPuntos.addEventListener("click", contadorPuntaje);
 restarVida.addEventListener("click", perderVida);
 progresar.addEventListener("click", progresarBarra);
