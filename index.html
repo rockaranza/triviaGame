@@ -18,11 +18,33 @@
         </div>
         <div class="container">
             <div class="aside nes-container with-title is-left">
-                <h2 class="titleSize title">Jugador</h2>
+                <h2 class="titleSize title">Opciones</h2>
                 <div class="data">
                     <div class="dataUser">
-                        <p>Nombre</p>
-                        <p class="nes-container">Rockaranza</p>
+                        <!--Opciones del juego-->
+                        <div class="gameOptions nes-container with-title is-left">
+                            <h3 class="title">Opciones</h3>
+                            <label for="default_select">Categorías</label>
+                            <div class="nes-select">
+                                <select required id="default_select">
+                                    <option value="" disabled selected hidden>Select...</option>
+                                </select>
+                            </div>
+                            <label for="default_select">Cantidad de Preguntas</label>
+                            <input type="number" class="nes-textarea">
+                            <div class="tipoRespuestas">
+                                <p>Tipo de respuestas</p>
+                                <label>
+                                    <input type="radio" class="nes-radio" name="answer" checked />
+                                    <span>Multiple Choise</span>
+                                  </label>
+                                  <label>
+                                    <input type="radio" class="nes-radio" name="answer" />
+                                    <span>True/False</span>
+                                  </label>
+                            </div>
+                        </div>
+                        <!--Interfaz de info-->
                         <div class="lifeContainer">
                             <p>Life</p>
                             <span><i class="nes-icon is-large heart init" id="heart1"></i></span>

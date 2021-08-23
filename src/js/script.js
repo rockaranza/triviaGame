@@ -1,3 +1,6 @@
+window.onload = cargarCategorias();
+
+
 const sumarPuntos = document.getElementById("btnSumar");
 const restarVida = document.getElementById("btnPerder");
 const progresar = document.getElementById("btnProgreso");
@@ -8,6 +11,20 @@ const corazon2 = document.getElementById("heart2");
 const corazon3 = document.getElementById("heart3");
 const barraProgreso = document.getElementById("barraProgreso");
 const score = document.getElementById("score");
+const listadoTemas = document.getElementById("default_select");
+
+/*CARGA INICIAL*/
+//Recibir categorias para mostrar
+async function cargarCategorias () {
+    const recibirCategorias = await fetch(`https://opentdb.com/api_category.php`);
+    const categorias = await recibirCategorias.json();
+    categorias.trivia_categories.forEach(categoria => {
+        console.log(categoria.name);
+        const itemLista = document.createElement("option");
+        itemLista.innerHTML=categoria.name;
+        listadoTemas.appendChild(itemLista);
+    });
+}
 
 
 /*Calcular puntaje*/
