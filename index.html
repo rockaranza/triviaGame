@@ -18,32 +18,52 @@
         </div>
         <div class="container">
             <div class="aside">     
-                
                     <!--Opciones del juego-->
                     <div class="opcionesJuego nes-container with-title is-left">
                         <h3 class="title titleWidth">Opciones</h3>
-                        <label for="default_select">Categorías</label>                            <div class="nes-select">
-                            <select required id="default_select">
-                                <option value="" disabled selected hidden>Selecciona...</option>
+                        <!--CATEGORIAS-->
+                        <label for="default_select topicTitle">CATEGORÍAS</label>                            <div class="nes-select">
+                            <select required class="topicTitleSelect" id="defaultSelect">
+                                <option value="" class="options" disabled selected hidden>Selecciona...</option>
                             </select>
                         </div>
-                        <label for="default_select">Cantidad de Preguntas</label>
-                        <input type="number" class="nes-textarea" min="5" max="50">
+                        <!--CANTIDAD PREGUNTAS-->
+                        <div class="cantidadPreguntasContainer">
+                            <label for="default_select">CANTIDAD DE PREGUNTAS</label>
+                            <input type="number" class="nes-textarea" min="5" max="50" id="cantidadPreguntas">
+                        </div>
+                        <!--DIFICULTAD-->
                         <div class="tipoRespuestas">
-                            <p>Tipo de respuestas</p>
+                            <p>DIFICULTAD</p>
                             <label>
-                                <input type="radio" class="nes-radio" name="answer" checked />
+                                <input type="radio" class="nes-radio" name="selectorDificultad" value="easy" checked/>
+                                <span id="easy">Easy</span>
+                            </label>
+                            <label>
+                                <input type="radio" class="nes-radio" name="selectorDificultad" value="medium"/>
+                                <span id="medium">Medium</span>
+                            </label>
+                            <label>
+                                <input type="radio" class="nes-radio" name="selectorDificultad" value="hard"/>
+                                <span id="hard">Hard</span>
+                            </label>
+                        </div>
+                        <!--TIPO DE RESPUESTAS-->
+                        <div class="tipoRespuestas">
+                            <p>TIPO RESPUESTAS</p>
+                            <label>
+                                <input type="radio" class="nes-radio" name="answer" value="multiple" checked />
                                 <span>Multiple Choise</span>
                               </label>
                               <label>
-                                <input type="radio" class="nes-radio" name="answer" />
+                                <input type="radio" class="nes-radio" name="answer" value="boolean" />
                                 <span>True/False</span>
                               </label>
                         </div>
                         <button type="button" class="btnJugar nes-btn is-success" id="btnJugar">JUGAR</button>
                     </div>
                         <!--Interfaz de info-->
-                    <div class="jugador nes-container with-title is-left">
+                    <!-- <div class="jugador nes-container with-title is-left">
                         <h3 class="title">Jugador</h3>
                         <div class="vidaScore">
                             <div class="lifeContainer">
@@ -61,16 +81,41 @@
                             <p>Progreso</p>
                             <progress class="nes-progress is-warning" value="0" max="100" id="barraProgreso"></progress>
                         </div>
-                    </div>
+                    </div> -->
                               
             </div>
             <!--Sección de Juego-->
             <div class="game nes-container with-title is-left">
                 <p class="title titleSize">Trivia</p>
+                <!-- SECCION JUGADOR -->
+                <div class="vidaScore nes-container">
+                    <div class="lifeContainer">
+                        <p>Life</p>
+                        <span><i class="nes-icon is-medium heart init" id="heart1"></i></span>
+                        <span><i class="nes-icon is-medium heart init" id="heart2"></i></span>
+                        <span><i class="nes-icon is-medium heart init" id="heart3"></i></span>
+                    </div>
+                    
+                    <div class="scoreContainer ">
+                        <p class="title">Score</p>
+                        <p class="score" id="score">0</p>
+                    </div>
+                    <div class="progreseContainer">
+                        <p>Progreso</p>
+                        <progress class="nes-progress is-warning" value="0" max="100" id="barraProgreso"></progress>
+                    </div>
+                    
+                </div>
+                
+                <div class="tableroJuego" id="questionContainer">
+                    <p id="question"></p>
+                </div>
+
+                <!--SECCION TRIVIA -->
                 <div class="botones">
-                    <button type="button" class="nes-btn is-success" id="btnSumar">Sumar Puntos</button>
+                    <!-- <button type="button" class="nes-btn is-success" id="btnSumar">Sumar Puntos</button>
                     <button type="button" class="nes-btn is-error" id="btnPerder">Perder Vida</button>
-                    <button type="button" class="nes-btn is-warning" id="btnProgreso">Progresar</button>
+                    <button type="button" class="nes-btn is-warning" id="btnProgreso">Progresar</button> -->
                 </div>
             </div>
         </div>
