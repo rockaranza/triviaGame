@@ -2,13 +2,16 @@ window.onload = cargarCategorias;
 
 const temasAPI = `https://opentdb.com/api_category.php`;
 let controlVidas = 3;
+let controlPreguntas = 0;
+let puntaje = 0;
+let q = 0;
 
 /*BOTONES*/
 const jugar = document.getElementById("btnJugar");
 const sumarPuntos = document.getElementById("btnSumar");
 const restarVida = document.getElementById("btnPerder");
 const progresar = document.getElementById("btnProgreso");
-
+const next = document.getElementById("next");
 /*Contenido VISUAL JUEGO*/
 const corazon1 = document.getElementById("heart1");
 const corazon2 = document.getElementById("heart2");
@@ -56,26 +59,76 @@ const pedirPreguntas = url => {
 /*-------- Mostrar Preguntas ---------- */
 const llenarPreguntas = (preguntasRescatas) => {
     preguntas = preguntasRescatas;
+    console.log(preguntas);
     mostrarPregunta();
 }
 const mostrarPregunta = () => {
-    preguntas.forEach(pregunta =>{
-        tableroJuego.innerHTML = "";
-        tableroJuego.innerHTML =`
-        <div class="pregunta">
-            <p>${pregunta.question}</p>
-            <div class="botonesResuestas">
-                <button class="btn">${pregunta.correct_answer}</button><button class="btn">${pregunta.incorrect_answer}</button>
-            </div>     
+    preguntaCorrecta = preguntas[q].correct_answer;
+    if(preguntas[q].incorrect_answers.length-1){
+        tableroJuego.innerHTML = `
+        <div>
+            <p>${preguntas[q].question}</p>
+            <div>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].correct_answer}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[0]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[1]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[2]}</button>
+            </div>
         </div>
         `;
-        console.log(`Pregunta: ${pregunta.question}`);
-        console.log(`Pregunta correcta: ${pregunta.correct_answer}`);
-        console.log(`Pregunta incorrecta: ${pregunta.incorrect_answer}`);
-        console.log(`Dificultad: ${pregunta.difficulty}`);
-        console.log(`Categoria: ${pregunta.category}`);
-    })
+    } else {
+        tableroJuego.innerHTML = `
+        <div>
+            <p>${preguntas[q].question}</p>
+            <div>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].correct_answer}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[0]}</button>
+            </div>
+        </div>
+        `;
+    }     
+};
+
+const handleCheckAnswer = button => {
+    if(button.innerText === preguntaCorrecta) {
+        // puntaje++;
+        contadorPuntaje();
+        console.log("Correcto");
+    }else{
+        perderVida(controlVidas);
+        console.log("Incorrecto");
+    }
+    if(preguntas.length -1 !== q){
+        q++;
+        mostrarPregunta();
+    }else{
+        console.log(`Juego Terminado. Puntaje: ${contadorPuntaje()}`);
+    }
+};
+/*PUNTAJE*/
+function contadorPuntaje (){
+    let calculoPuntaje = parseInt(score.innerHTML);
+    calculoPuntaje = parseInt(calculoPuntaje) + 100;
+    console.log(calculoPuntaje);
+    score.innerText = "";
+    score.innerText = `${calculoPuntaje}`;
+    console.log("funcions");
+    return calculoPuntaje;
 }
+
+/*PERDER VIDA*/
+function perderVida(controlVidas) {
+    if(!corazon3.classList.contains("is-transparent")){
+        corazon3.classList.add("is-transparent");
+    }else if(!corazon2.classList.contains("is-transparent")){
+        corazon2.classList.add("is-transparent");
+    }else if(!corazon1.classList.contains("is-transparent")){
+        corazon1.classList.add("is-transparent");
+        alert("GAME OVER");
+    }
+}
+
+
 
 /* Selector Radio Dificultad */
 const selectorDificultad = () => {
@@ -103,41 +156,10 @@ const selectorTipoPregunta = () => {
 }
 
 
-
-
-/*Calcular puntaje*/
-function contadorPuntaje (){
-    let calculoPuntaje = parseInt(score.innerHTML);
-    calculoPuntaje = parseInt(calculoPuntaje) + 100;
-    console.log(calculoPuntaje);
-    score.innerText = "";
-    score.innerText = `${calculoPuntaje}`;
-    console.log("funcions");
-}
-
-/*Aumentar linea de progreso*/
-function progresarBarra(){
-    let progresoActual = parseInt(barraProgreso.getAttribute("value"));
-    progresoActual = progresoActual + 10;
-    barraProgreso.setAttribute("value", progresoActual);
-    console.log(progresoActual);
-}
-
-/*Perder Vida*/
-function perderVida(controlVidas) {
-    if(!corazon3.classList.contains("is-transparent")){
-        corazon3.classList.add("is-transparent");
-    }else if(!corazon2.classList.contains("is-transparent")){
-        corazon2.classList.add("is-transparent");
-    }else if(!corazon1.classList.contains("is-transparent")){
-        corazon1.classList.add("is-transparent");
-        alert("GAME OVER");
-    }
-}
-
 /*Invocar Funciones*/
 // jugar.addEventListener("click",);
 // sumarPuntos.addEventListener("click", contadorPuntaje);
 // restarVida.addEventListener("click", perderVida);
 // progresar.addEventListener("click", progresarBarra);
 jugar.addEventListener("click", crearUrlApi);
+next.addEventListener("click", llenarPreguntas);

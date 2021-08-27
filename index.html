@@ -22,7 +22,8 @@
                     <div class="opcionesJuego nes-container with-title is-left">
                         <h3 class="title titleWidth">Opciones</h3>
                         <!--CATEGORIAS-->
-                        <label for="default_select topicTitle">CATEGORÍAS</label>                            <div class="nes-select">
+                        <div class="nes-select">
+                            <label for="default_select topicTitle">CATEGORÍAS</label>                           
                             <select required class="topicTitleSelect" id="defaultSelect">
                                 <option value="" class="options" disabled selected hidden>Selecciona...</option>
                             </select>
@@ -108,11 +109,12 @@
                 </div>
                 
                 <div class="tableroJuego" id="questionContainer">
-                    <p id="question"></p>
+                    <button class="nes-btn" id="next">NEXT</button>
                 </div>
 
                 <!--SECCION TRIVIA -->
                 <div class="botones">
+                    
                     <!-- <button type="button" class="nes-btn is-success" id="btnSumar">Sumar Puntos</button>
                     <button type="button" class="nes-btn is-error" id="btnPerder">Perder Vida</button>
                     <button type="button" class="nes-btn is-warning" id="btnProgreso">Progresar</button> -->
