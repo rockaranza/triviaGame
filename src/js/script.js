@@ -1,5 +1,6 @@
 window.onload = cargarCategorias;
 
+
 const temasAPI = `https://opentdb.com/api_category.php`;
 /* VARIABLES GLOBALES PARA CONTROLAR JUEGO*/
 let controlVidas = 3;
@@ -12,6 +13,10 @@ const jugar = document.getElementById("btnJugar");
 const playAgain = document.getElementById("playAgain");
 
 /*Contenido VISUAL JUEGO*/
+const opciones = document.getElementById("optionsSide");
+const trivia = document.getElementById("triviaSide");
+const test = document.getElementById("opcionesJuego");
+
 const corazon1 = document.getElementById("heart1");
 const corazon2 = document.getElementById("heart2");
 const corazon3 = document.getElementById("heart3");
@@ -37,6 +42,7 @@ async function cargarCategorias () {
         itemLista.setAttribute("value", categoria.id);
         listadoTemas.appendChild(itemLista);
     });
+    detectarPantalla();
 }
 
 /*--------- Crear URL para preguntas ----------*/
@@ -49,6 +55,10 @@ const crearUrlApi = (e) => {
     if(cantidadPreguntas.value===""||cantidadPreguntas.value<3){ cantidadPreguntas.value = 3};
     const API = `https://opentdb.com/api.php?amount=${cantidadPreguntas.value}&category=${listadoTemas.value}&difficulty=${dificultad}&type=${tipoPregunta}`;
     barraProgreso.setAttribute("max", cantidadPreguntas.value);
+    if(screen.width < 425) {
+        test.style.display = 'none';
+        trivia.classList.remove("hidden");
+    }
     pedirPreguntas(API);
 }
 
@@ -183,6 +193,13 @@ const selectorTipoPregunta = () => {
         }
     }
     return valorSelectorPregunta;
+}
+
+/*PANTALLAS*/
+const detectarPantalla = () => {
+    if(screen.width < 425){
+        trivia.classList.add("hidden");
+    }
 }
 
 

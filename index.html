@@ -17,9 +17,9 @@
             <h1>TRIVIA VANILLA JS</h1>
         </div>
         <div class="container">
-            <div class="aside">     
+            <div class="aside" id="optionsSide">     
                     <!--Opciones del juego-->
-                    <div class="opcionesJuego nes-container with-title is-left">
+                    <div class="opcionesJuego nes-container with-title is-left" id="opcionesJuego">
                         <h3 class="title titleWidth">Opciones</h3>
                         <!--CATEGORIAS-->
                         <div class="nes-select">
@@ -66,7 +66,7 @@
             </div>
 
             <!--Sección de Juego-->
-            <div class="game nes-container with-title is-left">
+            <div class="game nes-container with-title is-left" id="triviaSide">
                 <p class="title titleSize">Trivia</p>
                 <!-- SECCION JUGADOR -->
                 <div class="vidaScore nes-container">
@@ -81,7 +81,7 @@
                         <p class="title">Score</p>
                         <p class="score" id="score">0</p>
                     </div>
-                    <div class="progreseContainer">
+                    <div class="progressContainer">
                         <p>Progreso</p>
                         <progress class="nes-progress is-warning" value="0" max="100" id="barraProgreso"></progress>
                     </div>
