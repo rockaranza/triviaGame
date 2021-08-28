@@ -9,10 +9,7 @@ let q = 0;
 
 /*BOTONES*/
 const jugar = document.getElementById("btnJugar");
-const sumarPuntos = document.getElementById("btnSumar");
-const restarVida = document.getElementById("btnPerder");
-const progresar = document.getElementById("btnProgreso");
-const next = document.getElementById("next");
+const playAgain = document.getElementById("playAgain");
 
 /*Contenido VISUAL JUEGO*/
 const corazon1 = document.getElementById("heart1");
@@ -20,6 +17,7 @@ const corazon2 = document.getElementById("heart2");
 const corazon3 = document.getElementById("heart3");
 const barraProgreso = document.getElementById("barraProgreso");
 const score = document.getElementById("score");
+const gameOver = document.getElementById("gameOverContainer");
 
 /* Contenido HTML */
 const listadoTemas = document.getElementById("defaultSelect");
@@ -62,6 +60,9 @@ const pedirPreguntas = url => {
 
 /*-------- Mostrar Preguntas ---------- */
 const llenarPreguntas = (preguntasRescatas) => {
+    jugar.setAttribute("disabled", true);
+    jugar.classList.remove("is-success");
+    jugar.classList.add("is-disabled")
     preguntas = preguntasRescatas;
     console.log(preguntas);
     mostrarPregunta();
@@ -70,23 +71,23 @@ const mostrarPregunta = () => {
     preguntaCorrecta = preguntas[q].correct_answer;
     if(preguntas[q].incorrect_answers.length-1){
         tableroJuego.innerHTML = `
-        <div>
+        <div class="centrarPreguntas">
             <p>${preguntas[q].question}</p>
-            <div>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].correct_answer}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[0]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[1]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[2]}</button>
+            <div class="contenedorOpciones">
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].correct_answer}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[0]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[1]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[2]}</button>
             </div>
         </div>
         `;
     } else {
         tableroJuego.innerHTML = `
-        <div>
+        <div class="centrarPreguntas">
             <p>${preguntas[q].question}</p>
-            <div>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].correct_answer}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn">${preguntas[q].incorrect_answers[0]}</button>
+            <div class="contenedorOpciones">
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].correct_answer}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[0]}</button>
             </div>
         </div>
         `;
@@ -95,7 +96,6 @@ const mostrarPregunta = () => {
 
 const handleCheckAnswer = button => {
     if(button.innerText === preguntaCorrecta) {
-        // puntaje++;
         contadorPuntaje();
         console.log("Correcto");
     }else{
@@ -123,17 +123,15 @@ function contadorPuntaje (){
 }
 
 /*PERDER VIDA*/
-function perderVida(controlVidas) {
+function perderVida() {
     if(!corazon3.classList.contains("is-transparent")){
         corazon3.classList.add("is-transparent");
     }else if(!corazon2.classList.contains("is-transparent")){
         corazon2.classList.add("is-transparent");
     }else if(!corazon1.classList.contains("is-transparent")){
         corazon1.classList.add("is-transparent");
-        alert("GAME OVER");
-        location.reload();
-
-        // tableroJuego.innerHTML = '';
+        gameOver.classList.toggle("hidden");
+        //location.reload();
     }
 }
  /*BARRA PROGRESO*/
@@ -143,6 +141,9 @@ function progresarBarra(){
     barraProgreso.setAttribute("value", progresoActual);
     console.log(progresoActual);
 }
+
+/*REINICIAR*/
+const reiniciar = () => {location.reload()}
 
 
 
@@ -178,3 +179,4 @@ const selectorTipoPregunta = () => {
 // restarVida.addEventListener("click", perderVida);
 // progresar.addEventListener("click", progresarBarra);
 jugar.addEventListener("click", crearUrlApi);
+playAgain.addEventListener("click", reiniciar);
