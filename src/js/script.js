@@ -18,6 +18,7 @@ const corazon3 = document.getElementById("heart3");
 const barraProgreso = document.getElementById("barraProgreso");
 const score = document.getElementById("score");
 const gameOver = document.getElementById("gameOverContainer");
+const sumary = document.getElementById("sumary");
 
 /* Contenido HTML */
 const listadoTemas = document.getElementById("defaultSelect");
@@ -44,8 +45,9 @@ const crearUrlApi = (e) => {
     let dificultad = selectorDificultad();
     let tipoPregunta = selectorTipoPregunta();
     //https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
-    const API = `https://opentdb.com/api.php?amount=${cantidadPreguntas.value}&category=${listadoTemas.value}&difficulty=${dificultad}&type=${tipoPregunta}`;
     console.log(cantidadPreguntas.value);
+    if(cantidadPreguntas.value===""||cantidadPreguntas.value<3){ cantidadPreguntas.value = 3};
+    const API = `https://opentdb.com/api.php?amount=${cantidadPreguntas.value}&category=${listadoTemas.value}&difficulty=${dificultad}&type=${tipoPregunta}`;
     barraProgreso.setAttribute("max", cantidadPreguntas.value);
     pedirPreguntas(API);
 }
@@ -74,10 +76,10 @@ const mostrarPregunta = () => {
         <div class="centrarPreguntas">
             <p>${preguntas[q].question}</p>
             <div class="contenedorOpciones">
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].correct_answer}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[0]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[1]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[2]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn1">${preguntas[q].correct_answer}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn2">${preguntas[q].incorrect_answers[0]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn3">${preguntas[q].incorrect_answers[1]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn4">${preguntas[q].incorrect_answers[2]}</button>
             </div>
         </div>
         `;
@@ -99,15 +101,16 @@ const handleCheckAnswer = button => {
         contadorPuntaje();
         console.log("Correcto");
     }else{
-        perderVida(controlVidas);
+        perderVida();
         console.log("Incorrecto");
     }
     if(preguntas.length -1 !== q){
         q++;
-        
         mostrarPregunta();
     }else{
         console.log(`Juego Terminado. Puntaje: ${contadorPuntaje()}`);
+        gameOver.classList.toggle("hidden");
+        desactivarBotonesRespuestas();
     }
     progresarBarra();
 };
@@ -118,7 +121,6 @@ function contadorPuntaje (){
     console.log(calculoPuntaje);
     score.innerText = "";
     score.innerText = `${calculoPuntaje}`;
-    console.log("funcions");
     return calculoPuntaje;
 }
 
@@ -126,11 +128,16 @@ function contadorPuntaje (){
 function perderVida() {
     if(!corazon3.classList.contains("is-transparent")){
         corazon3.classList.add("is-transparent");
+        controlVidas = controlVidas-1;
     }else if(!corazon2.classList.contains("is-transparent")){
         corazon2.classList.add("is-transparent");
+        controlVidas = controlVidas-2;
     }else if(!corazon1.classList.contains("is-transparent")){
         corazon1.classList.add("is-transparent");
-        gameOver.classList.toggle("hidden");
+        controlVidas = controlVidas-1;
+        if(controlVidas===0){
+            gameOver.classList.toggle("hidden");
+        }
         //location.reload();
     }
 }
@@ -145,6 +152,12 @@ function progresarBarra(){
 /*REINICIAR*/
 const reiniciar = () => {location.reload()}
 
+/*DESACTIVAR BOTONES DE RESPUESTAS*/
+const desactivarBotonesRespuestas = () => {
+    for(let i=1; i<5; i++ ){
+        document.getElementById(`btn`+i).disabled=true;
+    }
+}
 
 
 /* Selector Radio Dificultad */
@@ -174,9 +187,5 @@ const selectorTipoPregunta = () => {
 
 
 /*Invocar Funciones*/
-// jugar.addEventListener("click",);
-// sumarPuntos.addEventListener("click", contadorPuntaje);
-// restarVida.addEventListener("click", perderVida);
-// progresar.addEventListener("click", progresarBarra);
 jugar.addEventListener("click", crearUrlApi);
 playAgain.addEventListener("click", reiniciar);
