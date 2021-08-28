@@ -1,6 +1,7 @@
 window.onload = cargarCategorias;
 
 const temasAPI = `https://opentdb.com/api_category.php`;
+/* VARIABLES GLOBALES PARA CONTROLAR JUEGO*/
 let controlVidas = 3;
 let controlPreguntas = 0;
 let puntaje = 0;
@@ -12,6 +13,7 @@ const sumarPuntos = document.getElementById("btnSumar");
 const restarVida = document.getElementById("btnPerder");
 const progresar = document.getElementById("btnProgreso");
 const next = document.getElementById("next");
+
 /*Contenido VISUAL JUEGO*/
 const corazon1 = document.getElementById("heart1");
 const corazon2 = document.getElementById("heart2");
@@ -45,6 +47,8 @@ const crearUrlApi = (e) => {
     let tipoPregunta = selectorTipoPregunta();
     //https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
     const API = `https://opentdb.com/api.php?amount=${cantidadPreguntas.value}&category=${listadoTemas.value}&difficulty=${dificultad}&type=${tipoPregunta}`;
+    console.log(cantidadPreguntas.value);
+    barraProgreso.setAttribute("max", cantidadPreguntas.value);
     pedirPreguntas(API);
 }
 
@@ -100,10 +104,12 @@ const handleCheckAnswer = button => {
     }
     if(preguntas.length -1 !== q){
         q++;
+        
         mostrarPregunta();
     }else{
         console.log(`Juego Terminado. Puntaje: ${contadorPuntaje()}`);
     }
+    progresarBarra();
 };
 /*PUNTAJE*/
 function contadorPuntaje (){
@@ -125,7 +131,15 @@ function perderVida(controlVidas) {
     }else if(!corazon1.classList.contains("is-transparent")){
         corazon1.classList.add("is-transparent");
         alert("GAME OVER");
+        tableroJuego.innerHTML = '';
     }
+}
+ /*BARRA PROGRESO*/
+function progresarBarra(){
+    let progresoActual = parseInt(barraProgreso.getAttribute("value"));
+    progresoActual = progresoActual + 1;
+    barraProgreso.setAttribute("value", progresoActual);
+    console.log(progresoActual);
 }
 
 
@@ -162,4 +176,3 @@ const selectorTipoPregunta = () => {
 // restarVida.addEventListener("click", perderVida);
 // progresar.addEventListener("click", progresarBarra);
 jugar.addEventListener("click", crearUrlApi);
-next.addEventListener("click", llenarPreguntas);
