@@ -131,7 +131,9 @@ function perderVida(controlVidas) {
     }else if(!corazon1.classList.contains("is-transparent")){
         corazon1.classList.add("is-transparent");
         alert("GAME OVER");
-        tableroJuego.innerHTML = '';
+        location.reload();
+
+        // tableroJuego.innerHTML = '';
     }
 }
  /*BARRA PROGRESO*/
