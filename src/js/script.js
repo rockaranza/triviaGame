@@ -9,6 +9,7 @@ let puntaje = 0;
 let q = 0;
 let j = 0;
 let indiceRespuestasDesordenadas = [0,1,2,3];
+let indiceRespuestasDesordenadasTrueFalse = [0,1];
 
 /*BOTONES*/
 const jugar = document.getElementById("btnJugar");
@@ -87,6 +88,7 @@ const mostrarPregunta = () => {
     preguntaCorrecta = preguntas[q].correct_answer;
     /*Desordenar indices para mostrar las respuestas de forma aleatorea*/
     indiceRespuestasDesordenadas = indiceRespuestasDesordenadas.sort(function(){return Math.random() - 0.5})
+    indiceRespuestasDesordenadasTrueFalse = indiceRespuestasDesordenadasTrueFalse.sort(function(){return Math.random() - 0.5})
     newRespuestas.push(preguntas[q].correct_answer);
     newRespuestas.push(preguntas[q].incorrect_answers[0]);
     newRespuestas.push(preguntas[q].incorrect_answers[1]);
@@ -108,8 +110,8 @@ const mostrarPregunta = () => {
         <div class="centrarPreguntas">
             <p>${preguntas[q].question}</p>
             <div class="contenedorOpciones">
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].correct_answer}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${preguntas[q].incorrect_answers[0]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${newRespuestas[indiceRespuestasDesordenadasTrueFalse[0]]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta">${newRespuestas[indiceRespuestasDesordenadasTrueFalse[1]]}</button>
             </div>
         </div>
         `;
