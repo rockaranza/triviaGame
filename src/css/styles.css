@@ -60,6 +60,15 @@ html {
     background-color: white;
 }
 
+.aboutMeContainer {
+    display: flex;
+}
+
+.aboutMeContainer a {
+    display: inline;
+    margin: auto;
+}
+
 .cantidadPreguntasContainer {
     width: 100%;
 }
@@ -189,7 +198,7 @@ html {
         height: 30rem;
         flex-direction: column;
         flex-wrap: inherit; 
-}
+    }
 }
 
 @media(max-width: 768px){
