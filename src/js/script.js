@@ -7,8 +7,10 @@ let controlVidas = 3;
 let controlPreguntas = 0;
 let puntaje = 0;
 let q = 0;
-let respuestasDesordenadas = [];
-let indiceRespuestasDesordenadas = [0,1,2,3];
+let j = 0;
+//let respuestasDesordenadas = [];
+//let indiceRespuestasDesordenadas = [0,1,2,3];
+let newRespuestas = [];
 
 /*BOTONES*/
 const jugar = document.getElementById("btnJugar");
@@ -78,7 +80,7 @@ const llenarPreguntas = (preguntasRescatas) => {
     jugar.classList.remove("is-success");
     jugar.classList.add("is-disabled")
     desordenarRespuestas(preguntasRescatas);
-    preguntas = respuestasDesordenadas;
+    preguntas = preguntasRescatas;
     console.log(preguntas);
     mostrarPregunta();
 }
@@ -87,12 +89,12 @@ const mostrarPregunta = () => {
     if(preguntas[q].incorrect_answers.length-1){
         tableroJuego.innerHTML = `
         <div class="centrarPreguntas">
-            <p>${preguntas[q]}</p>
+            <p>${preguntas[q].question}</p>
             <div class="contenedorOpciones">
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn1">${preguntas[q]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn2">${preguntas[q]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn3">${preguntas[q]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn4">${preguntas[q]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn1">${newRespuestas[0]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn2">${newRespuestas[1]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn3">${newRespuestas[2]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn4">${newRespuestas[3]}</button>
             </div>
         </div>
         `;
@@ -110,13 +112,14 @@ const mostrarPregunta = () => {
 };
 
 /*DESORDENAR RESPUESTAS*/
-const desordenarRespuestas = preguntasRescatas => {
-    indiceRespuestasDesordenadas = indiceRespuestasDesordenadas.sort(function(){return Math.random() - 0.5})
-    let newArrayPreguntas = [];
-    newArrayPreguntas.push(preguntasRescatadas)
-    indiceRespuestasDesordenadas.forEach(index => {
-        respuestasDesordenadas.push(preguntasRescatas.question[index]);
-    });
+const desordenarRespuestas = preg => {
+    // indiceRespuestasDesordenadas = indiceRespuestasDesordenadas.sort(function(){return Math.random() - 0.5})
+    newRespuestas.push(preg[j].correct_answer);
+    newRespuestas.push(preg[j].incorrect_answers[0]);
+    newRespuestas.push(preg[j].incorrect_answers[1]);
+    newRespuestas.push(preg[j].incorrect_answers[2]);
+    newRespuestas.sort();
+    j++;
 }
 
 const handleCheckAnswer = button => {
