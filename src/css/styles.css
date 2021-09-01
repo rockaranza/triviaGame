@@ -64,6 +64,12 @@ html {
     width: 100%;
 }
 
+.cantidadPreguntasContainer p {
+    font-style: italic;
+    font-size: 10px;
+    color: red;
+}
+
 .tipoRespuestas {
     width: 100%;
 }

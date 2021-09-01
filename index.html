@@ -32,6 +32,7 @@
                         <div class="cantidadPreguntasContainer">
                             <label for="default_select">CANTIDAD DE PREGUNTAS</label>
                             <input type="number" class="nes-textarea" min="5" max="50" id="cantidadPreguntas">
+                            <p>* Por defecto son 5 preguntas</p>
                         </div>
                         <!--DIFICULTAD-->
                         <div class="tipoRespuestas">
@@ -97,7 +98,7 @@
     <div class="hidden" id="gameOverContainer">
         <div class="centrarGameOver">
             <div class="nes-container gameOver">
-                <p>Game Over</p>
+                <p id="finalText">Game Over</p>
                 <div id="sumary"></div>
                 <button class="nes-btn is-success" id="playAgain">Jugar nuevamente</button>
             </div>
@@ -106,3 +107,4 @@
     <script src="src/js/script.js"></script>
 </body>
 </html>
+

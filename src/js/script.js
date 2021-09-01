@@ -8,9 +8,7 @@ let controlPreguntas = 0;
 let puntaje = 0;
 let q = 0;
 let j = 0;
-//let respuestasDesordenadas = [];
-//let indiceRespuestasDesordenadas = [0,1,2,3];
-let newRespuestas = [];
+let indiceRespuestasDesordenadas = [0,1,2,3];
 
 /*BOTONES*/
 const jugar = document.getElementById("btnJugar");
@@ -27,6 +25,7 @@ const corazon3 = document.getElementById("heart3");
 const barraProgreso = document.getElementById("barraProgreso");
 const score = document.getElementById("score");
 const gameOver = document.getElementById("gameOverContainer");
+const textoFinal = document.getElementById("finalText");
 const sumary = document.getElementById("sumary");
 
 /* Contenido HTML */
@@ -56,7 +55,7 @@ const crearUrlApi = (e) => {
     let tipoPregunta = selectorTipoPregunta();
     //https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
     console.log(cantidadPreguntas.value);
-    if(cantidadPreguntas.value===""||cantidadPreguntas.value<3){ cantidadPreguntas.value = 3};
+    if(cantidadPreguntas.value===""||cantidadPreguntas.value<3){ cantidadPreguntas.value = 5};
     const API = `https://opentdb.com/api.php?amount=${cantidadPreguntas.value}&category=${listadoTemas.value}&difficulty=${dificultad}&type=${tipoPregunta}`;
     barraProgreso.setAttribute("max", cantidadPreguntas.value);
     if(screen.width < 425) {
@@ -79,22 +78,28 @@ const llenarPreguntas = (preguntasRescatas) => {
     jugar.setAttribute("disabled", true);
     jugar.classList.remove("is-success");
     jugar.classList.add("is-disabled")
-    desordenarRespuestas(preguntasRescatas);
     preguntas = preguntasRescatas;
     console.log(preguntas);
-    mostrarPregunta();
+    mostrarPregunta(preguntas);
 }
 const mostrarPregunta = () => {
+    let newRespuestas = [];
     preguntaCorrecta = preguntas[q].correct_answer;
+    /*Desordenar indices para mostrar las respuestas de forma aleatorea*/
+    indiceRespuestasDesordenadas = indiceRespuestasDesordenadas.sort(function(){return Math.random() - 0.5})
+    newRespuestas.push(preguntas[q].correct_answer);
+    newRespuestas.push(preguntas[q].incorrect_answers[0]);
+    newRespuestas.push(preguntas[q].incorrect_answers[1]);
+    newRespuestas.push(preguntas[q].incorrect_answers[2]);
     if(preguntas[q].incorrect_answers.length-1){
         tableroJuego.innerHTML = `
         <div class="centrarPreguntas">
             <p>${preguntas[q].question}</p>
             <div class="contenedorOpciones">
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn1">${newRespuestas[0]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn2">${newRespuestas[1]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn3">${newRespuestas[2]}</button>
-                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn4">${newRespuestas[3]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn1">${newRespuestas[indiceRespuestasDesordenadas[0]]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn2">${newRespuestas[indiceRespuestasDesordenadas[1]]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn3">${newRespuestas[indiceRespuestasDesordenadas[2]]}</button>
+                <button onClick="handleCheckAnswer(this)" class="nes-btn botonRespuesta" id="btn4">${newRespuestas[indiceRespuestasDesordenadas[3]]}</button>
             </div>
         </div>
         `;
@@ -111,17 +116,6 @@ const mostrarPregunta = () => {
     }     
 };
 
-/*DESORDENAR RESPUESTAS*/
-const desordenarRespuestas = preg => {
-    // indiceRespuestasDesordenadas = indiceRespuestasDesordenadas.sort(function(){return Math.random() - 0.5})
-    newRespuestas.push(preg[j].correct_answer);
-    newRespuestas.push(preg[j].incorrect_answers[0]);
-    newRespuestas.push(preg[j].incorrect_answers[1]);
-    newRespuestas.push(preg[j].incorrect_answers[2]);
-    newRespuestas.sort();
-    j++;
-}
-
 const handleCheckAnswer = button => {
     if(button.innerText === preguntaCorrecta) {
         contadorPuntaje();
@@ -135,6 +129,8 @@ const handleCheckAnswer = button => {
         mostrarPregunta();
     }else{
         console.log(`Juego Terminado. Puntaje: ${contadorPuntaje()}`);
+        textoFinal.innerText = "GANASTE";
+        sumary.innerText = `${contadorPuntaje()}`;
         gameOver.classList.toggle("hidden");
         desactivarBotonesRespuestas();
     }
@@ -161,7 +157,9 @@ function perderVida() {
     }else if(!corazon1.classList.contains("is-transparent")){
         corazon1.classList.add("is-transparent");
         controlVidas = controlVidas-1;
-        if(controlVidas===0){
+        if(controlVidas<=0){
+            textoFinal.innerText = "Perdiste";
+            sumary.innerText = `${contadorPuntaje()}`;
             gameOver.classList.toggle("hidden");
         }
         //location.reload();
